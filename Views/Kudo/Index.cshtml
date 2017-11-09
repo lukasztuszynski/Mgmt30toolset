@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Mgmt30toolset.Models.Kudo>
+
+@foreach (var kudo in Model)
+{
+    <div>
+        <h3>@kudo.Category.Name</h3>
+        @kudo.Content
+        <h4>Receiver: @kudo.Receiver.FirstName @kudo.Receiver.LastName</h4>
+        <h5>Sender: @kudo.Sender.FirstName @kudo.Sender.LastName</h5>
+        <hr>
+    </div>
+}
