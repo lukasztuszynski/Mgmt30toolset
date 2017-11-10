@@ -1,12 +1,20 @@
-﻿@model IEnumerable<Mgmt30toolset.Models.Kudo>
+﻿@model Mgmt30toolset.Models.ViewModels.KudoListViewModel
 
-@foreach (var kudo in Model)
+@foreach (var kudo in Model.Kudos)
 {
-    <div>
-        <h3>@kudo.Category.Name</h3>
-        @kudo.Content
-        <h4>Receiver: @kudo.Receiver.FirstName @kudo.Receiver.LastName</h4>
-        <h5>Sender: @kudo.Sender.FirstName @kudo.Sender.LastName</h5>
-        <hr>
-    </div>
+<div>
+    <h3>@kudo.Category.Name</h3>
+    <p>@kudo.Content</p>
+    <h4>Receiver: @kudo.Receiver.FirstName @kudo.Receiver.LastName</h4>
+    <h5>Sender: @kudo.Sender.FirstName @kudo.Sender.LastName</h5>
+    <hr>
+</div>
 }
+
+<div>
+@for (var i = 1; i <= @Model.PagingInfo.TotalPages; i++ )
+{
+    <a asp-controller="Kudo" asp-route-pageNumber="@i" asp-action="Index">@i</a>
+}
+</div>
+

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mgmt30toolset.Models
 {
@@ -11,6 +12,9 @@ namespace Mgmt30toolset.Models
             _context = ctx;
         }
 
-        public IQueryable<Kudo> Kudos => _context.Kudos.Where(kudo => kudo.DateDeleted == null);
+        public IQueryable<Kudo> Kudos => _context.Kudos.Where(kudo => kudo.DateDeleted == null)
+                                                 .Include(kudo => kudo.Category)
+                                                 .Include(kudo => kudo.Receiver)
+                                                 .Include(kudo => kudo.Sender);
     }
 }

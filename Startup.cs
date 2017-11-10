@@ -31,7 +31,7 @@ namespace Mgmt30toolset
                 {
                     routes.MapRoute(
                         name: "default",
-                        template: "{controller=Kudo}/{action=Index}/{id?}");
+                        template: "{controller=Kudo}/{action=Index}/{pageNumber?}");
                 });
                 DbSeed.EnsurePopulated(app);
             }
