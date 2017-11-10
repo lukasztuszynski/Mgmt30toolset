@@ -15,7 +15,7 @@ namespace Mgmt30toolset
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:Mgmt30toolset:ConnectionString"]));
-            services.AddTransient<IKudoRepository,KudoMocRepository>();
+            services.AddTransient<IKudoRepository,KudoRepository>();
             services.AddMvc();
         }
 
@@ -33,6 +33,7 @@ namespace Mgmt30toolset
                         name: "default",
                         template: "{controller=Kudo}/{action=Index}/{id?}");
                 });
+                DbSeed.EnsurePopulated(app);
             }
         }
     }

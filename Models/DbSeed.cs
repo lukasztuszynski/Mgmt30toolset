@@ -8,7 +8,7 @@ namespace Mgmt30toolset.Models
 {
     public static class DbSeed
     {
-        public static void EnsurePopulated(IApplicationBuilder app, IHostingEnvironment env)
+        public static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
             context.Database.Migrate();

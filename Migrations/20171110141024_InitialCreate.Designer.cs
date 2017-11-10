@@ -11,7 +11,7 @@ using System;
 namespace Mgmt30toolset.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171109193835_InitialCreate")]
+    [Migration("20171110141024_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
