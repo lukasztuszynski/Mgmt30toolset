@@ -12,9 +12,9 @@
 }
 
 <div>
-@for (var i = 1; i <= @Model.PagingInfo.TotalPages; i++ )
+@for (var pageNumber = 1; pageNumber <= @Model.PagingInfo.TotalPages; pageNumber++ )
 {
-    <a asp-controller="Kudo" asp-route-pageNumber="@i" asp-action="Index">@i</a>
+    <a asp-controller="Kudo" asp-route-pageNumber="@pageNumber" asp-action="Index">@pageNumber</a>
 }
 </div>
 
