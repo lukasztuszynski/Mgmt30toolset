@@ -28,6 +28,13 @@ tarballs/
 test-results/
 Thumbs.db
 
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
 # Mac bundle stuff
 *.dmg
 *.app
