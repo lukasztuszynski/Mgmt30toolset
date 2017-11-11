@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Mgmt30toolset.Models;
+using Mgmt30toolset.Models.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,7 +39,7 @@ namespace Mgmt30toolset
                         name: "default",
                         template: "{controller=Kudo}/{action=Index}/{id?}");
                 });
-                DbSeed.EnsurePopulated(app);
+                ApplicationDbSeed.EnsurePopulated(app);
             }
         }
     }
