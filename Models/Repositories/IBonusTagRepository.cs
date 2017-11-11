@@ -7,3 +7,4 @@ namespace Mgmt30toolset.Models.Repositories
         IQueryable<BonusTag> BonusTags { get; }
     }
 }
+
