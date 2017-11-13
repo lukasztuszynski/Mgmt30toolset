@@ -9,7 +9,7 @@ namespace Mgmt30toolset.Controllers
     public class KudoController : Controller
     {
         private readonly IKudoRepository _repository;
-        public int PageSize = 3;
+        public int PageSize = 4;
 
         public KudoController(IKudoRepository repo)
         {
@@ -18,6 +18,8 @@ namespace Mgmt30toolset.Controllers
 
         public ViewResult Index(int pageNumber = 1)
         {
+            ViewBag.PageNumber = pageNumber;
+
             return View(new KudoListViewModel
             {
                 Kudos = _repository.Kudos
@@ -31,6 +33,12 @@ namespace Mgmt30toolset.Controllers
                     TotalItems = _repository.Kudos.Count()
                 }
             });
+        }
+
+        public ViewResult Details(int id)
+        {
+            var kudo = _repository.Kudos.FirstOrDefault(k => k.Id == id);
+            return  View(kudo);
         }
     }
 }

@@ -1,0 +1,15 @@
+@model Mgmt30toolset.Models.Kudo
+
+<div class="card m-3">
+    <h4 class="card-header">@Model.Category.Name</h4>
+    <div div class="card-body m-3 p-1">
+        <div class="card-text p-1">
+            @Model.Content
+        </div>
+        <h5>Receiver: @Model.Receiver.FirstName @Model.Receiver.LastName</h5>
+        <h5>Sender: @Model.Sender.FirstName @Model.Sender.LastName</h5>
+    </div>
+    <div class="card-footer">
+                <p class="card-text text-muted"><small>Created: @Model.DateCreated.ToString("dd MMM yyyy hh:mm tt")</small></p>
+     </div>
+</div>
