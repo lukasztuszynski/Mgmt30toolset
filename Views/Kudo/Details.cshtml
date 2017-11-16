@@ -1,7 +1,18 @@
 @model Mgmt30toolset.Models.Kudo
 
 <div class="card m-3">
-    <h4 class="card-header">@Model.Category.Name</h4>
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <h4>@Model.Category.Name</h4>
+            </div>
+            <div class="col-6 text-right">
+                <a class="card-link"  asp-controller="Kudo" asp-action="Edit" asp-route-id="@Model.Id">
+                    <span class="oi oi-pencil" title="edit" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    </div>
     <div div class="card-body m-3 p-1">
         <div class="card-text p-1">
             @Model.Content
@@ -10,6 +21,6 @@
         <h5>Sender: @Model.Sender.FirstName @Model.Sender.LastName</h5>
     </div>
     <div class="card-footer">
-                <p class="card-text text-muted"><small>Created: @Model.DateCreated.ToString("dd MMM yyyy hh:mm tt")</small></p>
+        <p class="card-text text-muted"><small>Created: @Model.DateCreated.ToString("dd MMM yyyy hh:mm tt")</small></p>
      </div>
 </div>
