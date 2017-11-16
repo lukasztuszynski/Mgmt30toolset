@@ -16,5 +16,18 @@ namespace Mgmt30toolset.Models.Repositories
                                                  .Include(kudo => kudo.Category)
                                                  .Include(kudo => kudo.Receiver)
                                                  .Include(kudo => kudo.Sender);
+
+        public Kudo Create(Kudo kudo)
+        {
+            _context.Kudos.Add(kudo);
+            _context.SaveChanges();
+            return kudo;
+        }
+        public Kudo Edit(Kudo kudo)
+        {
+            _context.Kudos.Update(kudo);
+            _context.SaveChanges();
+            return kudo;
+        }
     }
 }

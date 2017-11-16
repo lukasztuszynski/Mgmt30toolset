@@ -17,6 +17,8 @@ namespace Mgmt30toolset
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:Mgmt30toolset:ConnectionString"]));
             services.AddTransient<IKudoRepository, KudoRepository>();
+            services.AddTransient<IKudoCategoryRepository, KudoCategoryRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddMvc();
         }
 
@@ -32,8 +34,13 @@ namespace Mgmt30toolset
                 {
                     routes.MapRoute(
                         name: "pagination",
-                        template: "Kudo/Page{pageNumber}",
-                        defaults: new { Controller = "Kudo", action = "Index" });
+                        template: "{controller}/Page{pageNumber}",
+                        defaults: new {action = "Index" });
+
+                    routes.MapRoute(
+                        name: "kudoDetails",
+                        template: "{controller}/{id:int}",
+                        defaults: new {action = "Details" });
 
                     routes.MapRoute(
                         name: "default",
