@@ -11,7 +11,7 @@ namespace Mgmt30toolset.Models.ViewModels
         [Display(Name = "Content")]
         public string Content { get; set; }
 
-        [Display(Name = "REceiver")]
+        [Display(Name = "Receiver")]
         public int ReceiverId { get; set; }
 
         [Display(Name = "Sender")]
