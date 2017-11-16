@@ -2,7 +2,8 @@
 
 Management 3.0 tools
 
-- clon repo
+- clone repo
+- run `dotnet restore`
 - run `dotnet ef migrations add InitialCreate`
-- run `dotnet ef update database`
+- run `dotnet ef database update`
 - run `dotnet run`
