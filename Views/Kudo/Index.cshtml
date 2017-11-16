@@ -1,4 +1,4 @@
-﻿@model Mgmt30toolset.Models.ViewModels.KudoListViewModel
+﻿@model Mgmt30toolset.Models.ViewModels.KudoViewModel.KudoListViewModel
 
 <div class="row">
     @foreach (var kudo in Model.Kudos)
@@ -32,7 +32,7 @@
     <ul class="pagination">
         @for (var pageNumber = 1; pageNumber <= Model.PagingInfo.TotalPages; pageNumber++ )
         {
-        var active = ViewBag.PageNumber == pageNumber? "active" : "";
+        var active = Model.PagingInfo.CurrentPage == pageNumber? "active" : "";
         <li class="page-item @active">
              <a class="page-link" asp-controller="Kudo" asp-route-pageNumber="@pageNumber" asp-action="Index">@pageNumber</a>
         </li>

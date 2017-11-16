@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Mgmt30toolset.Models;
+using Mgmt30toolset.Models.ViewModels.KudoViewModel;
 using Mgmt30toolset.Models.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace Mgmt30toolset
             services.AddTransient<IKudoRepository, KudoRepository>();
             services.AddTransient<IKudoCategoryRepository, KudoCategoryRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IKudoEditViewModelFactory, KudoEditViewModelFactory>();
             services.AddMvc();
         }
 

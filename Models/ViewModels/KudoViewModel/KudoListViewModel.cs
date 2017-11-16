@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mgmt30toolset.Models.ViewModels
+namespace Mgmt30toolset.Models.ViewModels.KudoViewModel
 {
     public class KudoListViewModel
     {

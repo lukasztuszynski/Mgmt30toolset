@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mgmt30toolset.Models.ViewModels
+namespace Mgmt30toolset.Models.ViewModels.KudoViewModel
 {
     public class KudoEditViewModel
     {
