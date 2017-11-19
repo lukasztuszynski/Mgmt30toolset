@@ -28,9 +28,6 @@ tarballs/
 test-results/
 Thumbs.db
 
-# Visual Studio Code
-.vscode/*
-
 # Mac bundle stuff
 *.dmg
 *.app

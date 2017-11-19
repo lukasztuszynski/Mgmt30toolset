@@ -1,0 +1,31 @@
+@model Mgmt30toolset.Web.ViewModel.KudoFormViewModel
+
+@{ Layout = "_Layout"; }
+
+<form method="post" asp-controller="Kudo" asp-action="Edit" asp-antiforgery="true">
+    <div class="form-group">
+       <label asp-for="KudoViewModel.CategoryId"></label>
+       <select class="form-control" asp-for="KudoViewModel.CategoryId" asp-items="Model.GetCategories()">
+           <option disabled selected value="">Select a Category</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="KudoViewModel.Content"></label>
+        <textarea class="form-control" asp-for="KudoViewModel.Content" rows="3"></textarea>
+    </div>
+   <div class="form-group">
+       <label asp-for="KudoViewModel.SenderId"></label>
+       <select class="form-control" asp-for="KudoViewModel.SenderId" asp-items="Model.GetSenders()">
+           <option disabled selected value="">Select a Sender</option>
+        </select>
+    </div>
+    <div class="form-group">
+       <label asp-for="KudoViewModel.ReceiverId"></label>
+       <select class="form-control" asp-for="KudoViewModel.ReceiverId" asp-items="Model.GetReceivers()">
+           <option disabled selected value="">Select a Receiver</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="link link-primary" asp-controller="Kudo" asp-action="Index">Cancel</a>
+    @Html.HiddenFor(model => Model.KudoViewModel.Id)
+</form>
