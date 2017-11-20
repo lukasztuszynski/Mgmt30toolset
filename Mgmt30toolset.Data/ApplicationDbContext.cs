@@ -1,10 +1,9 @@
-﻿using EntityFrameworkCore.Triggers;
-using Mgmt30toolset.Model;
+﻿using Mgmt30toolset.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mgmt30toolset.Data
 {
-    public class ApplicationDbContext : DbContextWithTriggers
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
