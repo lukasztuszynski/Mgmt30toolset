@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mgmt30toolset.Data.Infrastructure
 {
-    public abstract class Repository<T> where T : ModelObject
+    public class Repository<T> : IRepository<T> where T : ModelObject 
     {
         private ApplicationDbContext context;
         private readonly DbSet<T> dbSet;

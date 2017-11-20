@@ -5,12 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mgmt30toolset.Data.Repositories
 {
-    public interface IKudoRepository : IRepository<Kudo>
-    {
-
-    }
-
-    public class KudoRepository : Repository<Kudo>, IKudoRepository
+    public class KudoRepository : Repository<Kudo>
     {
         public KudoRepository(ApplicationDbContext context)
             : base(context) { }

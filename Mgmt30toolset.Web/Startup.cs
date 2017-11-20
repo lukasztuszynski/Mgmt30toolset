@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Mgmt30toolset.Model;
+using Mgmt30toolset.Data.Infrastructure;
 
 namespace Mgmt30toolset
 {
@@ -21,11 +23,10 @@ namespace Mgmt30toolset
             services.AddTransient<IKudoService, KudoService>();
             services.AddTransient<IKudoCategoryService, KudoCategoryService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IKudoRepository, KudoRepository>();
+            services.AddTransient<IRepository<Kudo>, KudoRepository>();
+            services.AddTransient<IRepository<KudoCategory>, Repository<KudoCategory>>();
+            services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IKudoMapper, KudoMapper>();
-            services.AddTransient<IKudoCategoryRepository, KudoCategoryRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-
             services.AddMvc();
         }
 

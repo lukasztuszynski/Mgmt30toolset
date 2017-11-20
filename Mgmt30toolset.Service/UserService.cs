@@ -17,8 +17,8 @@ namespace Mgmt30toolset.Service
 
     public class UserService : IUserService
     {
-        private readonly IUserRepository userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IRepository<User> userRepository;
+        public UserService(IRepository<User> userRepository)
         {
             this.userRepository = userRepository;
         }

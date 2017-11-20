@@ -18,10 +18,10 @@ namespace Mgmt30toolset.Service
 
     public class KudoService : IKudoService
     {
-        private readonly IKudoRepository kudoRepository;
-        private readonly IKudoCategoryRepository categoryRepository;
+        private readonly IRepository<Kudo> kudoRepository;
+        private readonly IRepository<KudoCategory> categoryRepository;
 
-        public KudoService(IKudoRepository kudoRepository, IKudoCategoryRepository categoryRepository)
+        public KudoService(IRepository<Kudo> kudoRepository, IRepository<KudoCategory> categoryRepository)
         {
             this.kudoRepository = kudoRepository;
             this.categoryRepository = categoryRepository;
