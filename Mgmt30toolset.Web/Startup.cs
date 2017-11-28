@@ -4,6 +4,7 @@ using Mgmt30toolset.Service;
 using Mgmt30toolset.Web.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,18 @@ namespace Mgmt30toolset
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:Mgmt30toolset:ConnectionString"], b => b.MigrationsAssembly("Mgmt30toolset.Web")));
+
             services.AddTransient<IKudoService, KudoService>();
             services.AddTransient<IKudoCategoryService, KudoCategoryService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRepository<Kudo>, KudoRepository>();
             services.AddTransient<IRepository<KudoCategory>, Repository<KudoCategory>>();
-            services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IKudoMapper, KudoMapper>();
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddMvc();
         }
 
@@ -38,6 +44,7 @@ namespace Mgmt30toolset
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
                 app.UseStaticFiles();
+                app.UseAuthentication();
                 app.UseMvc(routes =>
                 {
                     routes.MapRoute(
@@ -55,9 +62,8 @@ namespace Mgmt30toolset
                         template: "{controller=Kudo}/{action=Index}/{id?}");
                 });
 
-                ApplicationDbContext dbContext = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                ApplicationDbSeed.EnsureSeeded(dbContext);
+                ApplicationDbSeed.CreateAdminAccount(app.ApplicationServices, Configuration).Wait();
+                ApplicationDbSeed.EnsureSeeded(app.ApplicationServices, Configuration);
             }
         }
     }

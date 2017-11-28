@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mgmt30toolset.Data.Infrastructure
 {
-    public class Repository<T> : IRepository<T> where T : ModelObject 
+    public class Repository<T> : IRepository<T> where T : ModelObject
     {
         private ApplicationDbContext context;
         private readonly DbSet<T> dbSet;
@@ -16,6 +16,21 @@ namespace Mgmt30toolset.Data.Infrastructure
         {
             this.context = context;
             dbSet = context.Set<T>();
+        }
+
+        public virtual T Get(Expression<Func<T, bool>> where)
+        {
+            return dbSet.Where(where).FirstOrDefault<T>();
+        }
+
+        public virtual IQueryable<T> GetMany(Expression<Func<T, bool>> where)
+        {
+            return dbSet.Where(where);
+        }
+
+        public virtual IQueryable<T> GetAll()
+        {
+            return dbSet;
         }
 
         public virtual void Add(T entity)
@@ -39,26 +54,6 @@ namespace Mgmt30toolset.Data.Infrastructure
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
             foreach (T obj in objects)
                 dbSet.Remove(obj);
-        }
-
-        public virtual T GetById(int id)
-        {
-            return dbSet.Find(id);
-        }
-
-        public virtual IQueryable<T> GetAll()
-        {
-            return dbSet.Where(t => t.DateDeleted == null);
-        }
-
-        public virtual IQueryable<T> GetMany(Expression<Func<T, bool>> where)
-        {
-            return dbSet.Where(where).Where(t => t.DateDeleted == null);
-        }
-
-        public T Get(Expression<Func<T, bool>> where)
-        {
-            return dbSet.Where(where).Where(t => t.DateDeleted == null).FirstOrDefault<T>();
         }
 
         public void SaveChanges()

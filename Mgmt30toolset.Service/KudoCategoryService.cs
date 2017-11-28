@@ -31,7 +31,7 @@ namespace Mgmt30toolset.Service
 
         public KudoCategory GetCategory(int id)
         {
-            var category = categoryRepository.GetById(id);
+            var category = categoryRepository.Get(c => c.Id == id);
             return category;
         }
 

@@ -3,6 +3,7 @@ using Mgmt30toolset.Data.Repositories;
 using Mgmt30toolset.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Mgmt30toolset.Service
 {
@@ -11,7 +12,7 @@ namespace Mgmt30toolset.Service
         IEnumerable<Kudo> GetKudos(int offset, int limit);
         int GetCount();
         Kudo GetKudo(int id);
-        void CreateKudo(Kudo kudo);
+        void CreateKudo(Kudo kudo, User sender);
         void ChangeKudo(Kudo kudo);
         void SaveChanges();
     }
@@ -44,17 +45,21 @@ namespace Mgmt30toolset.Service
 
         public Kudo GetKudo(int id)
         {
-            var kudo = kudoRepository.GetById(id);
+            var kudo = kudoRepository.Get(k => k.Id == id);
             return kudo;
         }
 
-        public void CreateKudo(Kudo kudo)
+        public void CreateKudo(Kudo kudo, User sender)
         {
+            kudo.DateCreated = DateTime.UtcNow;
+            kudo.DateUpdated = DateTime.UtcNow;
+            kudo.Sender = sender;
             kudoRepository.Add(kudo);
         }
 
         public void ChangeKudo(Kudo kudo)
         {
+            kudo.DateUpdated = DateTime.UtcNow;
             kudoRepository.Update(kudo);
         }
 

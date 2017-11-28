@@ -9,38 +9,34 @@ namespace Mgmt30toolset.Web.ViewModel
 {
     public class KudoFormViewModel
     {
-       public KudoViewModel KudoViewModel {get;set;} 
-       public IEnumerable<KudoCategory> Categories {get;set;}
-       public IEnumerable<User> Users {get;set;}
+        public KudoViewModel KudoViewModel { get; set; }
+        private readonly IEnumerable<KudoCategory> categories;
+        private readonly IEnumerable<User> users;
 
-       public IEnumerable<SelectListItem> GetSenders()
-       {
-           return Users.Select(u => new SelectListItem
-            {
-                Value = u.Id.ToString(),
-                Text = $"{u.FirstName} {u.LastName}".Trim(),
-                Selected = u.Id == KudoViewModel?.SenderId
-            });
-       }
-
-       public IEnumerable<SelectListItem> GetReceivers()
-       {
-           return Users.Select(u => new SelectListItem
+        public KudoFormViewModel() { }
+        public KudoFormViewModel(IEnumerable<KudoCategory> categories, IEnumerable<User> users)
+        {
+            this.categories = categories;
+            this.users = users;
+        }
+        public IEnumerable<SelectListItem> GetReceivers()
+        {
+            return users.Select(u => new SelectListItem
             {
                 Value = u.Id.ToString(),
                 Text = $"{u.FirstName} {u.LastName}".Trim(),
                 Selected = u.Id == KudoViewModel?.ReceiverId
             });
-       }
+        }
 
-       public IEnumerable<SelectListItem> GetCategories()
-       {
-           return Categories.Select(c => new SelectListItem
+        public IEnumerable<SelectListItem> GetCategories()
+        {
+            return categories.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.Name,
                 Selected = c.Id == KudoViewModel?.CategoryId
             });
-       }
+        }
     }
 }

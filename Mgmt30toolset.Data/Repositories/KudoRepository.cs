@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using Mgmt30toolset.Data.Infrastructure;
 using Mgmt30toolset.Model;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +21,13 @@ namespace Mgmt30toolset.Data.Repositories
             return kudos;
         }
 
-        public override Kudo GetById(int id)
+        public override Kudo Get(Expression<Func<Kudo, bool>> where)
         {
-            var kudo = base.GetMany(k=>k.Id == id)
+            var kudo = base.GetAll().Where(where)
                                     .Include(k => k.Category)
                                     .Include(k => k.Receiver)
                                     .Include(k => k.Sender)
-                                    .First();
+                                    .FirstOrDefault();
             return kudo;
         }
 
