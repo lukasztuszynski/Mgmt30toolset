@@ -67,6 +67,5 @@ namespace Mgmt30toolset.Service
         {
             kudoRepository.SaveChanges();
         }
-
     }
 }
