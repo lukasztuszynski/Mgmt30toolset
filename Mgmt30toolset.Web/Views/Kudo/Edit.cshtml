@@ -1,0 +1,43 @@
+@model Mgmt30toolset.Web.ViewModel.KudoFormViewModel
+
+@{ Layout = "_Layout"; }
+
+<form method="post" asp-controller="Kudo" asp-action="Edit" asp-antiforgery="true">
+    <div class="card m-3">
+        <h4 class="card-header">Edit kudo card</h4>
+        <div div class="card-body m-3 p-1">
+            <div class="form-group">
+            <label asp-for="KudoViewModel.CategoryId"></label>
+            <select class="form-control" asp-for="KudoViewModel.CategoryId" asp-items="Model.GetCategories()">
+                <option disabled selected value="">Select a category</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="KudoViewModel.Content"></label>
+                <textarea class="form-control" asp-for="KudoViewModel.Content" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="KudoViewModel.ReceiverId"></label>
+                <select class="form-control" asp-for="KudoViewModel.ReceiverId" asp-items="Model.GetReceivers()">
+                    <option disabled selected value="">Select a receiver</option>
+                </select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                    <div class="col-6">
+                        <p class="card-text text-muted"><small>Sender: @Model.KudoViewModel.Sender.FirstName @Model.KudoViewModel.Sender.LastName</small></p>
+                    </div>
+                    <div class="col-6 text-right">
+                        <p class="card-text text-muted"><small>Last update: @Model.KudoViewModel.DateUpdated.ToString("dd MMM yyyy hh:mm tt")</small></p>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="link link-primary" asp-controller="Kudo" asp-action="Index">Cancel</a>
+    @Html.HiddenFor(model => Model.KudoViewModel.Id)
+    </div>
+</form>

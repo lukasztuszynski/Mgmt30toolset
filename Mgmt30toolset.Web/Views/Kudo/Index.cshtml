@@ -1,0 +1,41 @@
+﻿@model Mgmt30toolset.Web.ViewModel.KudoListViewModel
+
+<div class="row">
+    @foreach (var kudo in Model.Kudos)
+    {
+    <div class="col-lg-6">
+        <div class="card m-3">
+            <h4 class="card-header">@kudo.Category.Name</h4>
+            <div div class="card-body m-3 p-1">
+                <div class="card-text p-1">
+                    @kudo.Content
+                </div>
+                <h5>Receiver: @kudo.Receiver.FirstName @kudo.Receiver.LastName</h5>
+                <h5>Sender: @kudo.Sender.FirstName @kudo.Sender.LastName</h5>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="card-text text-muted"><small>Created: @kudo.DateCreated.ToString("dd MMM yyyy hh:mm tt")</small></p>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="card-link"  asp-controller="Kudo" asp-action="Details" asp-route-id="@kudo.Id">Details</a>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    }
+</div>
+
+<div class="btn-group pull-right m-1">
+    <ul class="pagination">
+        @for (var pageNumber = 1; pageNumber <= Model.PagingInfo.TotalPages; pageNumber++ )
+        {
+        var active = Model.PagingInfo.CurrentPage == pageNumber? "active" : "";
+        <li class="page-item @active">
+             <a class="page-link" asp-controller="Kudo" asp-route-pageNumber="@pageNumber" asp-action="Index">@pageNumber</a>
+        </li>
+        }
+    </ul>
+</div>

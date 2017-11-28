@@ -1,0 +1,26 @@
+@model IEnumerable<Mgmt30toolset.Model.User>
+
+<div class="row">
+    @foreach (var user in Model)
+    {
+    <div class="col-lg-6">
+        <div class="card m-3">
+            <h4 class="card-header">@user.UserName</h4>
+            <div div class="card-body m-3 p-1">
+                <h5>@user.Id</h5>
+                <h5>@user.FirstName @user.LastName</h5>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="card-text text-muted"><small>email: @user.Email</small></p>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a class="card-link"  asp-controller="Admin" asp-action="Details" asp-route-id="@user.Id">Details</a>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    }
+</div>
