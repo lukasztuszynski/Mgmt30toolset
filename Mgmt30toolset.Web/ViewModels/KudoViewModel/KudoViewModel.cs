@@ -19,7 +19,7 @@ namespace Mgmt30toolset.Web.ViewModel
         public User Sender { get; set; }
         [Required]
         [Display(Name = "Category")]
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         [Display(Name = "Last update")]
         public DateTime DateUpdated { get; set; }

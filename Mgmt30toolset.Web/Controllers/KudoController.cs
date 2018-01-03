@@ -1,12 +1,10 @@
-﻿using Mgmt30toolset.Web.ViewModel;
-using Mgmt30toolset.Web.Mapping;
+﻿using Mgmt30toolset.Model;
 using Mgmt30toolset.Service;
-using Mgmt30toolset.Model;
+using Mgmt30toolset.Web.Mapping;
+using Mgmt30toolset.Web.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Mgmt30toolset.Controllers
 {
@@ -89,6 +87,7 @@ namespace Mgmt30toolset.Controllers
             }
             else
             {
+                kudoMapper.FillKudoFormViewModel(kudoForm);
                 return View(kudoForm);
             }
         }

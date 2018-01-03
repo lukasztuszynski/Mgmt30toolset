@@ -10,8 +10,8 @@ namespace Mgmt30toolset.Web.ViewModel
     public class KudoFormViewModel
     {
         public KudoViewModel KudoViewModel { get; set; }
-        private readonly IEnumerable<KudoCategory> categories;
-        private readonly IEnumerable<User> users;
+        private IEnumerable<KudoCategory> categories;
+        private IEnumerable<User> users;
 
         public KudoFormViewModel() { }
         public KudoFormViewModel(IEnumerable<KudoCategory> categories, IEnumerable<User> users)
@@ -29,6 +29,11 @@ namespace Mgmt30toolset.Web.ViewModel
             });
         }
 
+        public void SetUsers(IEnumerable<User> users)
+        {
+            this.users = users;
+        }
+
         public IEnumerable<SelectListItem> GetCategories()
         {
             return categories.Select(c => new SelectListItem
@@ -37,6 +42,11 @@ namespace Mgmt30toolset.Web.ViewModel
                 Text = c.Name,
                 Selected = c.Id == KudoViewModel?.CategoryId
             });
+        }
+
+        public void SetCategories(IEnumerable<KudoCategory> categories)
+        {
+            this.categories = categories;
         }
     }
 }

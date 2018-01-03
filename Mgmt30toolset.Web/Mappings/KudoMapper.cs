@@ -12,6 +12,7 @@ namespace Mgmt30toolset.Web.Mapping
         KudoFormViewModel CreateKudoFormViewModel(ClaimsPrincipal identity);
         KudoFormViewModel MapKudoModelToFormViewModel(Kudo kudo);
         Kudo MapKudoFormViewModelToModel(KudoFormViewModel kudoForm);
+        KudoFormViewModel FillKudoFormViewModel(KudoFormViewModel kudoForm);
     }
     public class KudoMapper : IKudoMapper
     {
@@ -76,11 +77,20 @@ namespace Mgmt30toolset.Web.Mapping
                 kudo = new Kudo();
             }
 
-            kudo.Category = kudoCategoyService.GetCategory(kudoForm.KudoViewModel.CategoryId);
+            kudo.Category = kudoCategoyService.GetCategory(kudoForm.KudoViewModel.CategoryId.Value);
             kudo.Receiver = userService.GetUser(kudoForm.KudoViewModel.ReceiverId);
             kudo.Content = kudoForm.KudoViewModel.Content;
 
             return kudo;
+        }
+
+        public KudoFormViewModel FillKudoFormViewModel(KudoFormViewModel kudoForm)
+        {
+            kudoForm.SetUsers(userService.GetUsers());
+            kudoForm.SetCategories(kudoCategoyService.GetCategories());
+            kudoForm.KudoViewModel.Sender = userService.GetUser(kudoForm.KudoViewModel.Sender.Id);
+
+            return kudoForm;
         }
 
     }

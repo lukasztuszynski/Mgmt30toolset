@@ -5,11 +5,12 @@
 <form method="post" asp-controller="Kudo" asp-action="Edit" asp-antiforgery="true">
     <div class="card m-3">
         <h4 class="card-header">Edit kudo card</h4>
+        <div class="text-danger" asp-validation-summary="All"></div>
         <div div class="card-body m-3 p-1">
             <div class="form-group">
-            <label asp-for="KudoViewModel.CategoryId"></label>
-            <select class="form-control" asp-for="KudoViewModel.CategoryId" asp-items="Model.GetCategories()">
-                <option disabled selected value="">Select a category</option>
+                <label asp-for="KudoViewModel.CategoryId"></label>
+                <select class="form-control" asp-for="KudoViewModel.CategoryId" asp-items="Model.GetCategories()">
+                    <option disabled selected value="">Select a category</option>
                 </select>
             </div>
             <div class="form-group">
@@ -39,5 +40,6 @@
     <button type="submit" class="btn btn-primary">Save</button>
     <a class="link link-primary" asp-controller="Kudo" asp-action="Index">Cancel</a>
     @Html.HiddenFor(model => Model.KudoViewModel.Id)
+    @Html.HiddenFor(model => Model.KudoViewModel.Sender.Id)
     </div>
 </form>
