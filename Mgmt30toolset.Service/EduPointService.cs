@@ -11,6 +11,7 @@ namespace Mgmt30toolset.Service
     {
         IEnumerable<EduPoint> GetPoints(int offset, int limit);
         int GetCount();
+        decimal GetSum();
         EduPoint GetPoint(int id);
         void CreatePoint(EduPoint eduPoint, User sender);
         void ChangePoint(EduPoint eduPoint);
@@ -41,6 +42,12 @@ namespace Mgmt30toolset.Service
         {
             int count = eduPointRepository.GetAll().Count();
             return count;
+        }
+
+        public decimal GetSum()
+        {
+            decimal sum = eduPointRepository.GetAll().Sum(point=>point.Amount);
+            return sum;
         }
 
         public EduPoint GetPoint(int id)
