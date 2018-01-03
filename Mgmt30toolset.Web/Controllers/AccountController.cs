@@ -1,12 +1,9 @@
-
 using Mgmt30toolset.Model;
 using Mgmt30toolset.Web.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Identity = Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Users.Controllers
 {
@@ -20,6 +17,7 @@ namespace Users.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
+
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -57,9 +55,9 @@ namespace Users.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult AccessDenied() {
+        public IActionResult AccessDenied()
+        {
             return View();
         }
     }
 }
-

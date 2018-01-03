@@ -18,7 +18,10 @@ namespace Mgmt30toolset.Data
             string username = configuration["Data:AdminUser:UserName"];
             string email = configuration["Data:AdminUser:Email"];
             string password = configuration["Data:AdminUser:Password"];
+            string firstName = configuration["Data:AdminUser:FirstName"];
+            string lastName = configuration["Data:AdminUser:LastName"];
             string role = configuration["Data:AdminUser:Role"];
+
             if (await userManager.FindByNameAsync(username) == null)
             {
                 if (await roleManager.FindByNameAsync(role) == null)
@@ -28,7 +31,9 @@ namespace Mgmt30toolset.Data
                 User user = new User
                 {
                     UserName = username,
-                    Email = email
+                    Email = email,
+                    FirstName = firstName,
+                    LastName = lastName
                 };
                 IdentityResult result = await userManager.CreateAsync(user, password);
                 if (result.Succeeded)
@@ -42,7 +47,7 @@ namespace Mgmt30toolset.Data
             ApplicationDbContext dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
             dbContext.Database.EnsureCreated();
 
-            if(dbContext.KudoCategories.Any())
+            if (dbContext.KudoCategories.Any())
             {
                 return;
             }
@@ -52,7 +57,7 @@ namespace Mgmt30toolset.Data
             {
                 return;
             }
-            
+
             var category1 = new KudoCategory
             {
                 Name = "Totally awesome!",
