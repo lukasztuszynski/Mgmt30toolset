@@ -19,6 +19,9 @@
                 <input type="password" asp-for="Password" class="form-control" />
             </div>
             <button class="btn btn-primary" type="submit">Log In</button>
+            <a class="btn btn-info" asp-action="GoogleLogin" asp-route-returnUrl="@ViewBag.returnUrl">
+                Log In With Google
+            </a>
             <a class="btn btn-secondary" asp-action="Index" asp-controller="Kudo">Cancel</a>
         </div>
     </div>
