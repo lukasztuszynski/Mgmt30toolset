@@ -47,7 +47,7 @@ namespace Mgmt30toolset.Data
             ApplicationDbContext dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
             dbContext.Database.EnsureCreated();
 
-            if (dbContext.KudoCategories.Any())
+            if (dbContext.EduPointCategories.Any())
             {
                 return;
             }
@@ -83,6 +83,24 @@ namespace Mgmt30toolset.Data
             };
 
             dbContext.KudoCategories.AddRange(category1, category2, category3);
+
+            var eduCategory1 = new EduPointCategory
+            {
+                Name = "Regular",
+                Description = "Regular points transfered each month.",
+                UserCreated = admin,
+                UserUpdated = admin
+            };
+
+            var eduCategory2 = new EduPointCategory
+            {
+                Name = "Bonus",
+                Description = "Bonus points transfered arbitrarily.",
+                UserCreated = admin,
+                UserUpdated = admin
+            };
+
+            dbContext.EduPointCategories.AddRange(eduCategory1, eduCategory2);
             dbContext.SaveChanges();
         }
     }

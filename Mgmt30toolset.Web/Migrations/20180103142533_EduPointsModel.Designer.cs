@@ -11,9 +11,10 @@ using System;
 namespace Mgmt30toolset.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationIdentiyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180103142533_EduPointsModel")]
+    partial class EduPointsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,74 +82,6 @@ namespace Mgmt30toolset.Web.Migrations
                     b.HasIndex("UserUpdatedId");
 
                     b.ToTable("BonusTags");
-                });
-
-            modelBuilder.Entity("Mgmt30toolset.Model.EduPoint", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("Amount");
-
-                    b.Property<int?>("CategoryId");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime?>("DateDeleted");
-
-                    b.Property<DateTime>("DateUpdated");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("ReceiverId");
-
-                    b.Property<string>("SenderId");
-
-                    b.Property<string>("UserCreatedId");
-
-                    b.Property<string>("UserUpdatedId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.HasIndex("UserCreatedId");
-
-                    b.HasIndex("UserUpdatedId");
-
-                    b.ToTable("EduPoints");
-                });
-
-            modelBuilder.Entity("Mgmt30toolset.Model.EduPointCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime?>("DateDeleted");
-
-                    b.Property<DateTime>("DateUpdated");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("UserCreatedId");
-
-                    b.Property<string>("UserUpdatedId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserCreatedId");
-
-                    b.HasIndex("UserUpdatedId");
-
-                    b.ToTable("EduPointCategories");
                 });
 
             modelBuilder.Entity("Mgmt30toolset.Model.Kudo", b =>
@@ -403,40 +336,6 @@ namespace Mgmt30toolset.Web.Migrations
                         .WithMany("Tags")
                         .HasForeignKey("BonusId");
 
-                    b.HasOne("Mgmt30toolset.Model.User", "UserCreated")
-                        .WithMany()
-                        .HasForeignKey("UserCreatedId");
-
-                    b.HasOne("Mgmt30toolset.Model.User", "UserUpdated")
-                        .WithMany()
-                        .HasForeignKey("UserUpdatedId");
-                });
-
-            modelBuilder.Entity("Mgmt30toolset.Model.EduPoint", b =>
-                {
-                    b.HasOne("Mgmt30toolset.Model.EduPointCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("Mgmt30toolset.Model.User", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("Mgmt30toolset.Model.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-
-                    b.HasOne("Mgmt30toolset.Model.User", "UserCreated")
-                        .WithMany()
-                        .HasForeignKey("UserCreatedId");
-
-                    b.HasOne("Mgmt30toolset.Model.User", "UserUpdated")
-                        .WithMany()
-                        .HasForeignKey("UserUpdatedId");
-                });
-
-            modelBuilder.Entity("Mgmt30toolset.Model.EduPointCategory", b =>
-                {
                     b.HasOne("Mgmt30toolset.Model.User", "UserCreated")
                         .WithMany()
                         .HasForeignKey("UserCreatedId");

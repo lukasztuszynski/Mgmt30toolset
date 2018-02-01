@@ -10,6 +10,7 @@ namespace Mgmt30toolset.Service
     public interface IEduPointService
     {
         IEnumerable<EduPoint> GetPoints(int offset, int limit);
+         IEnumerable<EduPoint> GetUserPoints(string userId, int offset, int limit);
         int GetCount();
         decimal GetSum();
         EduPoint GetPoint(int id);
@@ -32,6 +33,15 @@ namespace Mgmt30toolset.Service
         public IEnumerable<EduPoint> GetPoints(int offset, int limit)
         {
             var eduPoints = eduPointRepository.GetAll()
+                                      .OrderByDescending(point => point.Id)
+                                      .Skip((offset - 1) * limit)
+                                      .Take(limit).ToList();
+            return eduPoints;
+        }
+
+        public IEnumerable<EduPoint> GetUserPoints(string userId, int offset, int limit)
+        {
+            var eduPoints = eduPointRepository.GetAll().Where(point=>point.Receiver.Id == userId)
                                       .OrderByDescending(point => point.Id)
                                       .Skip((offset - 1) * limit)
                                       .Take(limit).ToList();

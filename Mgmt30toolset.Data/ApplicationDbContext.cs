@@ -11,6 +11,8 @@ namespace Mgmt30toolset.Data
 
         public DbSet<Kudo> Kudos { get; set; }
         public DbSet<KudoCategory> KudoCategories { get; set; }
+        public DbSet<EduPoint> EduPoints { get; set; }
+        public DbSet<EduPointCategory> EduPointCategories { get; set; }
         public DbSet<Bonus> Bonuses { get; set; }
         public DbSet<BonusTag> BonusTags { get; set; }
 

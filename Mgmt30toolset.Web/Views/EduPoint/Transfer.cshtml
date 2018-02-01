@@ -1,0 +1,41 @@
+@model Mgmt30toolset.Web.ViewModel.EduPointTransferFormViewModel
+
+@{ Layout = "_Layout"; }
+
+<form method="post" asp-controller="EduPoint" asp-action="Transfer" asp-antiforgery="true">
+    <div class="card m-3">
+        <h4 class="card-header">Transfer edu points</h4>
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <div div class="card-body m-3 p-1">
+            <div class="form-group">
+                <label asp-for="EduPointViewModel.CategoryId"></label>
+                <select class="form-control" asp-for="EduPointViewModel.CategoryId" asp-items="Model.GetCategories()">
+                    <option disabled selected value="">Select a category</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EduPointViewModel.Amount"></label>
+                <input class="form-control" asp-for="EduPointViewModel.Amount"></input>
+            </div>
+            <div class="form-group">
+                <label asp-for="EduPointViewModel.Description"></label>
+                <textarea class="form-control" asp-for="EduPointViewModel.Description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EduPointViewModel.ReceiverId"></label>
+                <select class="form-control" asp-for="EduPointViewModel.ReceiverId" asp-items="Model.GetReceivers()">
+                    <option disabled selected value="">Select a receiver</option>
+                </select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <p class="card-text text-muted"><small>Sender: @Model.EduPointViewModel.Sender.FirstName @Model.EduPointViewModel.Sender.LastName</small></p>
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a class="link link-primary" asp-controller="EduPoint" asp-action="Index">Cancel</a>
+    @Html.HiddenFor(model => Model.EduPointViewModel.Id)
+    @Html.HiddenFor(model => Model.EduPointViewModel.Sender.Id)
+    </div>
+</form>

@@ -1,0 +1,44 @@
+@model Mgmt30toolset.Web.ViewModel.EduPointListViewModel
+
+<a asp-controller="EduPoint" asp-action="transfer"  class="btn btn-outline-success">
+    <span class="oi oi-plus" title="plus" aria-hidden="true"></span>
+</a>
+<div class="row">
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Sender</th>
+        <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eduPoint in Model.EduPoints)
+        {
+            <tr>
+                <th scope="row">@eduPoint.DateCreated.ToString("dd MMM yyyy hh:mm tt")</th>
+                <td>@eduPoint.Amount</td>
+                <td>@eduPoint.Sender.FirstName @eduPoint.Sender.LastName</td>
+                <td>@eduPoint.Description</td>
+            </tr>
+        }  
+    </tbody>
+    </table>
+
+    <h3>You've got <span class="badge badge-primary">@Model.Total</span> points in total</h3>
+</div>
+@if (Model.PagingInfo.TotalPages>1) 
+{
+<div class="btn-group pull-right m-1" visible="false" >
+    <ul class="pagination">
+        @for (var pageNumber = 1; pageNumber <= Model.PagingInfo.TotalPages; pageNumber++ )
+        {
+        var active = Model.PagingInfo.CurrentPage == pageNumber? "active" : "";
+        <li class="page-item @active">
+             <a class="page-link" asp-controller="EduPoint" asp-route-pageNumber="@pageNumber" asp-action="Index">@pageNumber</a>
+        </li>
+        }
+    </ul>
+</div>
+}

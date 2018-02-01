@@ -1,5 +1,9 @@
 ﻿@model Mgmt30toolset.Web.ViewModel.KudoListViewModel
 
+<a asp-controller="Kudo" asp-action="create"  class="btn btn-outline-success">
+    <span class="oi oi-plus" title="plus" aria-hidden="true"></span>
+</a>
+      
 <div class="row">
     @foreach (var kudo in Model.Kudos)
     {
@@ -28,6 +32,8 @@
     }
 </div>
 
+@if (Model.PagingInfo.TotalPages>1) 
+{
 <div class="btn-group pull-right m-1">
     <ul class="pagination">
         @for (var pageNumber = 1; pageNumber <= Model.PagingInfo.TotalPages; pageNumber++ )
@@ -39,3 +45,4 @@
         }
     </ul>
 </div>
+}

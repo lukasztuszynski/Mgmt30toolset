@@ -24,10 +24,15 @@ namespace Mgmt30toolset
 
             services.AddTransient<IKudoService, KudoService>();
             services.AddTransient<IKudoCategoryService, KudoCategoryService>();
+            services.AddTransient<IEduPointService, EduPointService>();
+            services.AddTransient<IEduPointCategoryService, EduPointCategoryService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRepository<Kudo>, KudoRepository>();
             services.AddTransient<IRepository<KudoCategory>, Repository<KudoCategory>>();
+            services.AddTransient<IRepository<EduPoint>, EduPointRepository>();
+            services.AddTransient<IRepository<EduPointCategory>, Repository<EduPointCategory>>();
             services.AddTransient<IKudoMapper, KudoMapper>();
+            services.AddTransient<IEduPointMapper, EduPointMapper>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
