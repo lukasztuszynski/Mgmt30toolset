@@ -43,13 +43,6 @@ namespace Mgmt30toolset.Controllers
             return View(eduPointListViewModel);
         }
 
-       /*  [Authorize]
-        public ViewResult Details(int id)
-        {
-            Kudo kudo = kudoService.GetKudo(id);
-            return View(kudo);
-        }
-        */
         [Authorize]
         public ViewResult Edit(int id)
         {
@@ -86,7 +79,7 @@ namespace Mgmt30toolset.Controllers
 
                 eduPointService.SaveChanges();
 
-                return RedirectToAction("Details", new { id = point.Id });
+                return RedirectToAction("Index");
             }
             else
             {
