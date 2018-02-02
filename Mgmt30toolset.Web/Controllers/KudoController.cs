@@ -20,7 +20,7 @@ namespace Mgmt30toolset.Controllers
             this.kudoService = kudoService;
             this.userService = userService;
             this.kudoMapper = kudoMapper;
-            this.pageSize = int.Parse(configuration["Data:Mgmt30toolset:CardViewIndexPageSize"]);
+            this.pageSize = int.Parse(configuration["AppData:CardViewIndexPageSize"]);
         }
 
         [Authorize]

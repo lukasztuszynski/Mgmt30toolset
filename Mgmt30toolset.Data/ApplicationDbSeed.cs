@@ -15,12 +15,12 @@ namespace Mgmt30toolset.Data
             UserManager<User> userManager = serviceProvider.GetRequiredService<UserManager<User>>();
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string username = configuration["Data:AdminUser:UserName"];
-            string email = configuration["Data:AdminUser:Email"];
-            string password = configuration["Data:AdminUser:Password"];
-            string firstName = configuration["Data:AdminUser:FirstName"];
-            string lastName = configuration["Data:AdminUser:LastName"];
-            string role = configuration["Data:AdminUser:Role"];
+            string username = configuration["SeedData:AdminUser:UserName"];
+            string email = configuration["SeedData:AdminUser:Email"];
+            string password = configuration["SeedData:AdminUser:Password"];
+            string firstName = configuration["SeedData:AdminUser:FirstName"];
+            string lastName = configuration["SeedData:AdminUser:LastName"];
+            string role = configuration["SeedData:AdminUser:Role"];
 
             if (await userManager.FindByNameAsync(username) == null)
             {
@@ -52,7 +52,7 @@ namespace Mgmt30toolset.Data
                 return;
             }
 
-            User admin = dbContext.Users.Where(u => u.UserName == configuration["Data:AdminUser:UserName"]).FirstOrDefault();
+            User admin = dbContext.Users.Where(u => u.UserName == configuration["SeedData:AdminUser:UserName"]).FirstOrDefault();
             if (admin == null)
             {
                 return;

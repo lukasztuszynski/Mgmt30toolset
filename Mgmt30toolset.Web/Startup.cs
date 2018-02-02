@@ -22,7 +22,7 @@ namespace Mgmt30toolset
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["Data:Mgmt30toolset:ConnectionString"], b => b.MigrationsAssembly("Mgmt30toolset.Web")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["AppData:ConnectionString"], b => b.MigrationsAssembly("Mgmt30toolset.Web")));
 
             services.AddTransient<IKudoService, KudoService>();
             services.AddTransient<IKudoCategoryService, KudoCategoryService>();
@@ -42,14 +42,14 @@ namespace Mgmt30toolset
 
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
-                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                googleOptions.ClientId = Configuration["AuthenticationData:Google:ClientId"];
+                googleOptions.ClientSecret = Configuration["AuthenticationData:Google:ClientSecret"];
 
                 googleOptions.Events = new OAuthEvents()
                 {
                     OnRedirectToAuthorizationEndpoint = context =>
                     {
-                        context.Response.Redirect(context.RedirectUri + "&hd="+ Configuration["Authentication:Google:OrganizationName"]);
+                        context.Response.Redirect(context.RedirectUri + "&hd="+ Configuration["AuthenticationData:Google:OrganizationName"]);
                         return Task.FromResult(0);
                     }
                 };

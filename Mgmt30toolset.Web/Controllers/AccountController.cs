@@ -56,7 +56,7 @@ namespace Users.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else if (info.Principal.FindFirst(ClaimTypes.Email).Value.EndsWith("@" + configuration["Authentication:Google:OrganizationName"]))
+            else if (info.Principal.FindFirst(ClaimTypes.Email).Value.EndsWith("@" + configuration["AuthenticationData:Google:OrganizationName"]))
             {
                 User user = new User
                 {

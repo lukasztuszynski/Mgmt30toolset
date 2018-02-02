@@ -20,7 +20,7 @@ namespace Mgmt30toolset.Controllers
             this.eduPointService = eduPointService;
             this.userService = userService;
             this.pointMapper = pointMapper;
-            this.pageSize = int.Parse(configuration["Data:Mgmt30toolset:TableViewIndexPageSize"]);
+            this.pageSize = int.Parse(configuration["AppData:TableViewIndexPageSize"]);
         }
 
         [Authorize]
