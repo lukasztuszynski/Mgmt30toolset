@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace Users.Controllers
 {
@@ -14,11 +15,13 @@ namespace Users.Controllers
     {
         private Identity.UserManager<User> userManager;
         private Identity.SignInManager<User> signInManager;
+        private IConfiguration configuration;
 
-        public AccountController(Identity.UserManager<User> userManager, Identity.SignInManager<User> signInManager)
+        public AccountController(IConfiguration configuration, Identity.UserManager<User> userManager, Identity.SignInManager<User> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.configuration = configuration;
         }
 
         [AllowAnonymous]
@@ -33,9 +36,10 @@ namespace Users.Controllers
         {
             string redirectUrl = Url.Action("GoogleResponse", "Account", new { ReturnUrl = returnUrl });
             var properties = signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+
             return new ChallengeResult("Google", properties);
         }
-        
+
         [AllowAnonymous]
         public async Task<IActionResult> GoogleResponse(string returnUrl = "/")
         {
@@ -52,7 +56,7 @@ namespace Users.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
+            else if (info.Principal.FindFirst(ClaimTypes.Email).Value.EndsWith("@" + configuration["Authentication:Google:OrganizationName"]))
             {
                 User user = new User
                 {
@@ -73,9 +77,9 @@ namespace Users.Controllers
                         return Redirect(returnUrl);
                     }
                 }
-
-                return AccessDenied();
             }
+
+            return AccessDenied();
         }
 
         [HttpPost]
@@ -110,7 +114,7 @@ namespace Users.Controllers
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {
-            return View();
+            return View("AccessDenied");
         }
     }
 }
