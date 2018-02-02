@@ -57,7 +57,9 @@ namespace Users.Controllers
                 User user = new User
                 {
                     Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
-                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
+                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    FirstName = info.Principal.FindFirst(ClaimTypes.GivenName).Value,
+                    LastName = info.Principal.FindFirst(ClaimTypes.Surname).Value
                 };
 
                 IdentityResult identResult = await userManager.CreateAsync(user);
