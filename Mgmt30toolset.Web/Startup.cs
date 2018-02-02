@@ -49,7 +49,7 @@ namespace Mgmt30toolset
                 {
                     OnRedirectToAuthorizationEndpoint = context =>
                     {
-                        context.Response.Redirect(context.RedirectUri + "&hd=setapp.pl");
+                        context.Response.Redirect(context.RedirectUri + "&hd="+ Configuration["Authentication:Google:OrganizationName"]);
                         return Task.FromResult(0);
                     }
                 };
