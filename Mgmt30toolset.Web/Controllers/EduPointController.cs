@@ -20,7 +20,7 @@ namespace Mgmt30toolset.Controllers
             this.eduPointService = eduPointService;
             this.userService = userService;
             this.pointMapper = pointMapper;
-            this.pageSize = int.Parse(configuration["Data:Mgmt30toolset:IndexPageSize"]);
+            this.pageSize = int.Parse(configuration["Data:Mgmt30toolset:TableViewIndexPageSize"]);
         }
 
         [Authorize]
@@ -31,12 +31,12 @@ namespace Mgmt30toolset.Controllers
             var eduPointListViewModel = new EduPointListViewModel
             {
                 EduPoints = eduPointService.GetUserPoints(reciever.Id, pageNumber, pageSize),
-                Total = eduPointService.GetSum() ,
+                Total = eduPointService.GetUserPointsSum(reciever.Id) ,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = pageNumber,
                     PageSize = this.pageSize,
-                    TotalItems = eduPointService.GetCount()
+                    TotalItems = eduPointService.GetUserPointsCount(reciever.Id)
                 }
             };
 
