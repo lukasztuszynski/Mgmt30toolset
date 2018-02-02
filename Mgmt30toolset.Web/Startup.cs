@@ -54,28 +54,31 @@ namespace Mgmt30toolset
             {
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
-                app.UseStaticFiles();
-                app.UseAuthentication();
-                app.UseMvc(routes =>
-                {
-                    routes.MapRoute(
-                        name: "pagination",
-                        template: "{controller}/Page{pageNumber}",
-                        defaults: new { action = "Index" });
-
-                    routes.MapRoute(
-                        name: "kudoDetails",
-                        template: "{controller}/{id:int}",
-                        defaults: new { action = "Details" });
-
-                    routes.MapRoute(
-                        name: "default",
-                        template: "{controller=Kudo}/{action=Index}/{id?}");
-                });
-
-                ApplicationDbSeed.CreateAdminAccount(app.ApplicationServices, Configuration).Wait();
-                ApplicationDbSeed.EnsureSeeded(app.ApplicationServices, Configuration);
             }
+
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "pagination",
+                    template: "{controller}/Page{pageNumber}",
+                    defaults: new { action = "Index" });
+
+                routes.MapRoute(
+                    name: "kudoDetails",
+                    template: "{controller}/{id:int}",
+                    defaults: new { action = "Details" });
+
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Kudo}/{action=Index}/{id?}");
+            });
+
+            var context = (ApplicationDbContext)app.ApplicationServices.GetService(typeof(ApplicationDbContext));
+            context.Database.Migrate();
+            ApplicationDbSeed.CreateAdminAccount(app.ApplicationServices, Configuration).Wait();
+            ApplicationDbSeed.EnsureSeeded(app.ApplicationServices, Configuration);
         }
     }
 }

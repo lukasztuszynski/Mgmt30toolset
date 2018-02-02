@@ -1,6 +1,8 @@
 ﻿using Mgmt30toolset.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Mgmt30toolset.Data
 {
@@ -19,6 +21,16 @@ namespace Mgmt30toolset.Data
         public virtual void CommitChanges()
         {
             base.SaveChanges();
+        }
+    }
+
+    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    {
+        public ApplicationDbContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var options = builder.UseSqlite("Data Source=mgmt30toolset.db", b => b.MigrationsAssembly("Mgmt30toolset.Web"));
+            return new ApplicationDbContext(options.Options);
         }
     }
 }
