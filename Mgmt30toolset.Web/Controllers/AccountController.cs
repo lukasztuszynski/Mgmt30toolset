@@ -33,9 +33,10 @@ namespace Users.Controllers
         {
             string redirectUrl = Url.Action("GoogleResponse", "Account", new { ReturnUrl = returnUrl });
             var properties = signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+            
             return new ChallengeResult("Google", properties);
         }
-        
+
         [AllowAnonymous]
         public async Task<IActionResult> GoogleResponse(string returnUrl = "/")
         {
@@ -52,7 +53,7 @@ namespace Users.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
+            else if (info.Principal.FindFirst(ClaimTypes.Email).Value.EndsWith("@setapp.pl"))
             {
                 User user = new User
                 {
@@ -73,9 +74,9 @@ namespace Users.Controllers
                         return Redirect(returnUrl);
                     }
                 }
-
-                return AccessDenied();
             }
+
+            return AccessDenied();
         }
 
         [HttpPost]

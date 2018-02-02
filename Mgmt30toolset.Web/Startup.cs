@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Mgmt30toolset.Model;
 using Mgmt30toolset.Data.Infrastructure;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Threading.Tasks;
 
 namespace Mgmt30toolset
 {
@@ -42,6 +44,15 @@ namespace Mgmt30toolset
             {
                 googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+
+                googleOptions.Events = new OAuthEvents()
+                {
+                    OnRedirectToAuthorizationEndpoint = context =>
+                    {
+                        context.Response.Redirect(context.RedirectUri + "&hd=setapp.pl");
+                        return Task.FromResult(0);
+                    }
+                };
             });
 
             services.AddMvc();
