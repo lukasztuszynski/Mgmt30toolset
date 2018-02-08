@@ -12,8 +12,9 @@ namespace Mgmt30toolset
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                   .UseStartup<Startup>()
-                   .UseDefaultServiceProvider(options => options.ValidateScopes = false)
-                   .Build();
+                .UseApplicationInsights()
+                .UseStartup<Startup>()
+                .UseDefaultServiceProvider(options => options.ValidateScopes = false)
+                .Build();
     }
 }
