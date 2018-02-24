@@ -3,26 +3,13 @@
 @{ Layout = "_Layout"; }
 
 <form method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true">
-    <div class="card m-3">
-        <div class="card-header">
-            <h4>Log in</h4>
-        </div>
-        <div class="text-danger" asp-validation-summary="All"></div>
-        <div div class="card-body m-3 p-1">
-            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input type="password" asp-for="Password" class="form-control" />
-            </div>
-            <button class="btn btn-primary" type="submit">Log In</button>
-            <a class="btn btn-info" asp-action="GoogleLogin" asp-route-returnUrl="@ViewBag.returnUrl">
-                Log In With Google
-            </a>
-            <a class="btn btn-secondary" asp-action="Index" asp-controller="Kudo">Cancel</a>
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+   <div class="row">
+       <div class="col-12 text-center">
+        <h4>Log in</h4>
+        <a class="btn btn-danger" asp-action="GoogleLogin" asp-route-returnUrl="@ViewBag.returnUrl">
+            Log in with Google
+        </a>
         </div>
     </div>
 </form>

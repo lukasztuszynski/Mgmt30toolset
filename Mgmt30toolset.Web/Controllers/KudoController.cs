@@ -44,13 +44,20 @@ namespace Mgmt30toolset.Controllers
         public ViewResult Details(int id)
         {
             Kudo kudo = kudoService.GetKudo(id);
+            User sender = userService.GetUser(this.User);
+            ViewBag.SenderId = sender.Id;
             return View(kudo);
         }
 
         [Authorize]
-        public ViewResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             Kudo kudo = kudoService.GetKudo(id);
+            User sender = userService.GetUser(this.User);
+            if (kudo.Sender.Id != sender.Id)
+            {
+                return this.RedirectToAction("AccessDenied","Account");
+            }
             KudoFormViewModel kudoForm = kudoMapper.MapKudoModelToFormViewModel(kudo);
             return View("Edit", kudoForm);
         }
@@ -83,7 +90,7 @@ namespace Mgmt30toolset.Controllers
 
                 kudoService.SaveChanges();
 
-                return RedirectToAction("Details", new { id = kudo.Id });
+                return RedirectToAction("Index");
             }
             else
             {

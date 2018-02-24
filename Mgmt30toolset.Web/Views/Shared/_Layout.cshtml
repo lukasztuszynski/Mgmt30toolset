@@ -21,31 +21,28 @@
       <li class="nav-item active">
         <a class="nav-link" asp-controller="Kudo" asp-action="Index">Kudos</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" asp-controller="EduPoint" asp-action="Index">Edu Points</a>
-      </li>
+      </li> -->
     </ul>
+    @if (User?.Identity?.IsAuthenticated ?? false)
+      {
+        <a asp-controller="Kudo" asp-action="create"  class="btn btn-sm btn-outline-success">
+          Add new
+        </a>
+      }
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <div class="mx-2 my-lg-0">
       @if (User?.Identity?.IsAuthenticated ?? false) 
       {
         <a asp-controller="Account" asp-action="Logout" title="Log out" class="btn btn-outline-danger oi oi-account-logout"></a>
       }
-      else
-      {
-        <a asp-controller="Account" asp-action="Login" title="Log in" class="btn btn-outline-primary oi oi-account-login"></a>
-      }
     </div>
   </div>
 </nav>
     <div class="row m-1 p-1">
-        <div id="categories" class="col-3">
-            [Application sidebar]
-        </div>
-        <div class="col-9">
+        <div class="col-12">
             @RenderBody()
         </div>
     </div>
