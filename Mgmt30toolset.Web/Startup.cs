@@ -1,28 +1,51 @@
 ﻿using Mgmt30toolset.Data;
+using Mgmt30toolset.Data.Infrastructure;
 using Mgmt30toolset.Data.Repositories;
+using Mgmt30toolset.Model;
 using Mgmt30toolset.Service;
 using Mgmt30toolset.Web.Mapping;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Mgmt30toolset.Model;
-using Mgmt30toolset.Data.Infrastructure;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using System.Threading.Tasks;
 
 namespace Mgmt30toolset
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        private IHostingEnvironment _env;
+
+        public Startup(IHostingEnvironment env)
+        {
+            _env = env;
+
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("./appsettings.json")
+                .AddEnvironmentVariables();
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
+        }
+
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["AppData:ConnectionString"], b => b.MigrationsAssembly("Mgmt30toolset.Web")));
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("Mgmnt30Toolset"));
+            } else
+            {
+                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["AppData:ConnectionString"], b => b.MigrationsAssembly("Mgmt30toolset.Web")));
+            }
 
             services.AddTransient<IKudoService, KudoService>();
             services.AddTransient<IKudoCategoryService, KudoCategoryService>();
@@ -49,8 +72,8 @@ namespace Mgmt30toolset
                 {
                     OnRedirectToAuthorizationEndpoint = context =>
                     {
-                        context.Response.Redirect(context.RedirectUri + "&hd="+ Configuration["AuthenticationData:Google:OrganizationName"]);
-                        return Task.FromResult(0);
+                        context.Response.Redirect($"{context.RedirectUri}&hd={Configuration["AuthenticationData:Google:OrganizationName"]}");
+                        return Task.CompletedTask;
                     }
                 };
             });
@@ -86,8 +109,12 @@ namespace Mgmt30toolset
                     template: "{controller=Kudo}/{action=Index}/{id?}");
             });
 
-            var context = (ApplicationDbContext)app.ApplicationServices.GetService(typeof(ApplicationDbContext));
-            context.Database.Migrate();
+            if (!_env.IsDevelopment())
+            {
+                var context = (ApplicationDbContext)app.ApplicationServices.GetService(typeof(ApplicationDbContext));
+                context.Database.Migrate();
+            }
+            
             ApplicationDbSeed.CreateAdminAccount(app.ApplicationServices, Configuration).Wait();
             ApplicationDbSeed.EnsureSeeded(app.ApplicationServices, Configuration);
         }
