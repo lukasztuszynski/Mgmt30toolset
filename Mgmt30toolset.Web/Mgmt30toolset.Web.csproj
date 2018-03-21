@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\" />
     <Folder Include="Controllers\" />
     <Folder Include="ViewModels\" />
